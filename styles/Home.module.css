@@ -3,19 +3,38 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding: 2rem;
   min-height: 100vh;
 }
-
+.icon{
+  padding-left: 15px;
+  color: grey;
+}
+.iconDiv{
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+}
+.thirteen input {
+  border-radius: var(--border-radius);
+  outline: none;
+  width: 100%;
+  color: #2c3e50;
+  font-size: 20px;
+  padding: 10px;  
+  background: white;
+  border: 1px solid rgb(215, 213, 213,1);
+}
 .description {
   display: inherit;
   justify-content: inherit;
   align-items: inherit;
-  font-size: 0.85rem;
+  /* font-size: 0.85rem;   */
   max-width: var(--max-width);
   width: 100%;
   z-index: 2;
   font-family: var(--font-mono);
+  margin-bottom: 20px;
 }
 
 .description a {
@@ -25,13 +44,34 @@
   gap: 0.5rem;
 }
 
-.description p {
+.description h1 {
   position: relative;
   margin: 0;
   padding: 1rem;
   background-color: rgba(var(--callout-rgb), 0.5);
   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   border-radius: var(--border-radius);
+}
+.cat {
+  display: inherit;
+  justify-content: space-evenly;
+  align-items: inherit;
+  font-size: 0.85rem;
+  max-width: var(--max-width);
+  width: 100%;
+  margin-bottom: 1rem;
+  grid-template-columns: repeat(6, minmax(18%, auto));
+}
+.cat button {
+  margin: 2rem;
+  position: relative;
+  margin: 0;
+  padding: 1rem;
+  transition: transform 0.2s;
+  background-color: rgba(var(--callout-rgb), 0.5);
+  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+  border-radius: var(--border-radius);
+  /* font-size: 1.5rem; */
 }
 
 .code {
@@ -41,27 +81,35 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(25%, auto));
+  grid-template-columns: repeat(3, minmax(33%, auto));
   width: var(--max-width);
   max-width: 100%;
 }
-
 .card {
   padding: 1rem 1.2rem;
+  margin: 0.5rem;
   border-radius: var(--border-radius);
-  background: rgba(var(--card-rgb), 0);
-  border: 1px solid rgba(var(--card-border-rgb), 0);
-  transition: background 200ms, border 200ms;
+  background: rgba(var(--card-rgb), 0.1);
+  border: 1px solid rgba(var(--card-border-rgb), 0.15);
+  /* background: rgba(var(--card-rgb), 0.1);
+    border: 1px solid rgba(var(--card-border-rgb), 0.15); */
+  transition: background 200ms, border 200ms, scale 200ms;
 }
-
+.imgDiv {
+  height: 200px;
+}
 .card span {
+  opacity: 0;
+  font-size: 10px;
+  visibility: hidden;
   display: inline-block;
-  transition: transform 200ms;
+  transition: opacity 1000ms, scale 1000ms;
 }
 
 .card h2 {
+  font-size: 20px;
   font-weight: 600;
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.5rem;
 }
 
 .card p {
@@ -69,7 +117,6 @@
   opacity: 0.6;
   font-size: 0.9rem;
   line-height: 1.5;
-  max-width: 30ch;
 }
 
 .center {
@@ -97,7 +144,7 @@
 
 .center::before,
 .center::after {
-  content: '';
+  content: "";
   left: 50%;
   position: absolute;
   filter: blur(45px);
@@ -108,13 +155,16 @@
 .thirteen {
   position: relative;
 }
+.cat .thirteen {
+  font-size: 16px;
+}
 
 .thirteen {
+  margin: 0px;
+  /* font-size: 20px; */
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 75px;
-  height: 75px;
   padding: 25px 10px;
   margin-left: 16px;
   transform: translateZ(0);
@@ -125,7 +175,7 @@
 
 .thirteen::before,
 .thirteen::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
 }
@@ -133,8 +183,8 @@
 /* Conic Gradient Animation */
 .thirteen::before {
   animation: 6s rotate linear infinite;
-  width: 200%;
-  height: 200%;
+  width: 20%;
+  height: 300px;
   background: var(--tile-border);
 }
 
@@ -150,16 +200,35 @@
   );
   background-clip: content-box;
 }
+.loadMoreDiv{
+  padding-top: 10px;
+}
+.loadMoreDiv .cat button{
+  font-family: var(--font-mono);
+}
+.copyright{
+  padding: .5rem;
+  color: grey;
+  font-family: var(--font-mono);
+}
 
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
+    background: rgba(var(--card-rgb), 0.2);
+    border: 1px solid rgba(var(--card-border-rgb), 0.2);
+    scale: 1.05;
+  }
+  .cat button:hover {
+    transform: scale(1.1);
     background: rgba(var(--card-rgb), 0.1);
     border: 1px solid rgba(var(--card-border-rgb), 0.15);
   }
-
   .card:hover span {
-    transform: translateX(4px);
+    visibility: visible;
+    /* transform: translateX(4px); */
+    opacity: 70;
+    transform: scale(1.5);
   }
 }
 
@@ -178,20 +247,39 @@
   .content {
     padding: 4rem;
   }
-
+  .main {
+    padding: 1%;
+  }
   .grid {
     grid-template-columns: 1fr;
-    margin-bottom: 120px;
+    /* margin-bottom: 60px;
     max-width: 320px;
-    text-align: center;
+    text-align: center; */
   }
-
+  .cat {
+    /* padding: 1rem; */
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: repeat(3, minmax(33%, auto));
+  }
+  .cat .thirteen {
+    font-size: 10px;
+  }
+  .cat button {
+    margin: 0.3rem;
+  }
   .card {
-    padding: 1rem 2.5rem;
+    padding: 1rem;
+    background: rgba(var(--card-rgb), 0.1);
+    border: 1px solid rgba(var(--card-border-rgb), 0.15);
   }
 
   .card h2 {
+    font-size: 15px;
     margin-bottom: 0.5rem;
+  }
+  .card p {
+    font-size: 13px;
   }
 
   .center {
@@ -204,7 +292,10 @@
   }
 
   .description {
+    /* padding: 10px; */
     font-size: 0.8rem;
+    padding-left: 5px;
+    margin: 5px;
   }
 
   .description a {
@@ -248,12 +339,25 @@
     );
     z-index: 1;
   }
+  .loadMoreDiv .cat {
+    grid-template-columns: repeat(1, minmax(100%, auto));;
+  }
+}
+
+/* mobile and Smaller mobile */
+@media (max-width: 401px) {
+  .thirteen {
+    font-size: 1rem;
+  }
+  .cat button {
+    font-size: 0.7rem;
+  }
 }
 
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
   .grid {
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: repeat(2, minmax(50%, auto));
   }
 }
 

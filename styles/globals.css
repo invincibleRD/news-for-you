@@ -87,21 +87,43 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
+  background: white;
+}
+/* body {
+  color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+} */
 
 a {
   color: inherit;
   text-decoration: none;
 }
-
+.ima{
+ 
+  border-radius: 10px;
+  float: left;
+  padding-bottom: .5rem;
+  margin-right: 1rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+@media (max-width: 700px){
+  .ima{
+    border-radius: 7px;
+    width: 100%;
+    height: 100%;
+    float: none;
+    align-self: center;
   }
 }
