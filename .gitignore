@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /.pnp
+/news-for-you/pages/.data.txt
 .pnp.js
 
 # testing

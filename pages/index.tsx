@@ -6,7 +6,11 @@ import { GetStaticProps } from "next";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendarAlt,
+  faSearch,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 
@@ -82,9 +86,27 @@ export default function Home({ full_data }: { full_data: Array<todo[]> }) {
       seti(full_data[value].length);
     } else seti(i + 12);
   };
+  const [searchText,setSearchText] =useState("");
+  const [showSearchText,setShowSearchText] =useState(false);
   const categoryDefault = `0px 2px 8px -1px #0000001a`;
   const categorySelected = `0 0 10px grey`;
-  const onFormSubmit = () => {};
+  const onFormSubmit = () => { (event:any )=>setShowSearchText(true)};
+  const searchInput =(e:any) => {
+    setSearchText(e.target.value);
+  }
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "April",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sept",
+    "Nov",
+    "Dec",
+  ];
 
   return (
     <>
@@ -98,7 +120,7 @@ export default function Home({ full_data }: { full_data: Array<todo[]> }) {
         <div className={styles.description}>
           <h1 className={styles.thirteen}>News For You</h1>
           {/* <h1 className={styles.thirteen}>
-            <form action="" onSubmit={onFormSubmit} className={styles.iconDiv}>
+            <form  onSubmit={onFormSubmit} className={styles.iconDiv}>
               {" "}
               <input
                 aria-label="hi"
@@ -106,20 +128,21 @@ export default function Home({ full_data }: { full_data: Array<todo[]> }) {
                 placeholder="Search"
                 name=""
                 id=""
-                // onChange={(event: any) => {
-                //   seti(event.target.value);
-                // }}
+                onChange={searchInput}
               ></input>
+              <button type="submit">
               <FontAwesomeIcon
                 onClick={() => {}}
                 icon={faSearch}
                 className={styles.icon}
-              ></FontAwesomeIcon>
+              ></FontAwesomeIcon></button>
             </form>
           </h1> */}
         </div>
         {
           <div className={styles.cat}>
+            {/* {showSearchText ? <div>{searchText}</div> : <div>false</div>} */}
+            
             <button
               className={styles.thirteen}
               onClick={() => {
@@ -238,6 +261,24 @@ export default function Home({ full_data }: { full_data: Array<todo[]> }) {
                           height={20}
                         />
                       )}
+                    </div>
+                    <div className={styles.publishDate}>
+                      <FontAwesomeIcon
+                        icon={faCalendarAlt}
+                        className={styles.icon}
+                      ></FontAwesomeIcon>{" "}
+                      &nbsp;{months[parseInt(total.publishedAt.substr(5, 2))-1]}{" "}
+                      {total.publishedAt.substr(8, 2)}{" "}
+                      {total.publishedAt.substr(0, 4)} {/* &nbsp;&nbsp;   */}
+                      <div style={{ float: "right" }}>
+                        {total.author  && total.author.length<=15? (
+                          <FontAwesomeIcon
+                            icon={faUser}
+                            className={styles.icon}
+                          ></FontAwesomeIcon>
+                        ) : null}{" "}
+                        {total.author  &&total.author.length>15 ? null : total.author}
+                      </div>
                     </div>
                     <h2 className={inter.className}>{total.title}</h2>
                     {/* <div>

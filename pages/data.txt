@@ -487,3 +487,66 @@ export default function Home({ to }: { to: todo[] }) {
     justify-content: center;
     position: fixed;
     width: 100%;
+
+
+// packege.json script file
+"scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  }
+
+
+ // search bar
+ import axios from "axios";
+import { GetStaticProps } from "next";
+import { useState } from "react";
+import SearchBar from "./search";
+
+interface Todo {
+  title: string;
+  publishedAt: string;
+  author: string;
+  url: string;
+  content: string;
+  urlToImage: string;
+}
+
+export const getStaticProps: GetStaticProps = async function () {
+  const apiUrl = `https://newsapi.org/v2/everything?q=bitcoin&apiKey=3a3805f7bd9e4fa6a8a41aba22cc824d`;
+  const todolist = await axios.get(apiUrl);
+  const to: Todo[] = todolist.data.articles;
+  if (!to) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: { to },
+  };
+};
+
+export default function Home({ to }: { to: Todo[] }) {
+  const [articles, setArticles] = useState(to);
+
+  async function fetchNews(query: string) {
+    const apiUrl = `https://newsapi.org/v2/everything?q=${query}&apiKey=3a3805f7bd9e4fa6a8a41aba22cc824d`;
+    const todolist = await axios.get(apiUrl);
+    const to: Todo[] = todolist.data.articles;
+    setArticles(to);
+  }
+
+  return (
+    <div>
+      <SearchBar searchFunction={fetchNews} />
+      {articles &&
+        articles.map((article: Todo) => (
+          <div key={article.url}>
+            <h2>{article.title}</h2>
+            <img src={article.urlToImage} alt={article.title} />
+          </div>
+        ))}
+    </div>
+  );
+}
